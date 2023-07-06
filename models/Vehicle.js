@@ -56,9 +56,13 @@ const VehicleSchema = new mongoose.Schema(
       type: Number,
       //   required: [true, "Please provide number of seat"],
     },
-    Price: {
+    price: {
       type: Number,
       //   required: [true, "Please provide price"],
+    },
+    date: {
+      type: Date,
+      default: Date.now(),
     },
     createdBy: {
       type: mongoose.Types.ObjectId,
