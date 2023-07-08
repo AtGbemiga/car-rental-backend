@@ -52,6 +52,14 @@ const VehicleSchema = new mongoose.Schema(
       },
       //   required: [true, "Please provide transmission"],
     },
+    type: {
+      type: String,
+      enum: {
+        values: ["Sedan", "Suv", "Truck"],
+        message: "{VALUE} is not supported",
+      },
+      //   required: [true, "Please provide transmission"],
+    },
     seat: {
       type: Number,
       //   required: [true, "Please provide number of seat"],

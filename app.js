@@ -6,12 +6,14 @@ const app = express();
 
 // connect DB
 const connectDB = require("./db/connect");
+
 const authenticateUser = require("./middleware/authentication");
 
 // routers
 const authRouter = require("./routes/auth");
 const vehiclesRouter = require("./routes/vehicles");
 const profileRouter = require("./routes/profile");
+const searchRouter = require("./routes/search");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -27,6 +29,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/vehicles", vehiclesRouter);
 app.use("/api/v1/profile", authenticateUser, profileRouter);
+app.use("/api/v1/search", searchRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
