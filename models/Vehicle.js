@@ -4,7 +4,7 @@ const VehicleSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      //   required: [true, "Please provide vehicle name"],
+      //  required: [true, "Please provide vehicle name"],
       minlength: 3,
       maxlength: 50,
     },
@@ -17,7 +17,7 @@ const VehicleSchema = new mongoose.Schema(
               if (!/\.(jpg|jpeg|png|svg)$/i.test(value)) {
                 return false;
               }
-              const maxSizeInBytes = 1 * 1024 * 1024; // 1MB
+              const maxSizeInBytes = 1 * 1024 * 1024; //1MB
               const isWithinSizeLimit = value.length <= maxSizeInBytes;
 
               return isWithinSizeLimit;
@@ -32,17 +32,17 @@ const VehicleSchema = new mongoose.Schema(
         },
         message: "Maximum of 5 images allowed.",
       },
-      //   required: [true, "Please provide at least one image."],
     },
+
     description: {
       type: String,
-      //   required: [true, "Please provide description"],
+      //  required: [true, "Please provide description"],
       minlength: 50,
       maxlength: 300,
     },
     colour: {
       type: String,
-      //   required: [true, "Please provide color"],
+      //  required: [true, "Please provide color"],
     },
     transmission: {
       type: String,
@@ -50,7 +50,7 @@ const VehicleSchema = new mongoose.Schema(
         values: ["Automatic", "Manual"],
         message: "{VALUE} is not supported",
       },
-      //   required: [true, "Please provide transmission"],
+      //  required: [true, "Please provide transmission"],
     },
     type: {
       type: String,
@@ -58,15 +58,15 @@ const VehicleSchema = new mongoose.Schema(
         values: ["Sedan", "Suv", "Truck"],
         message: "{VALUE} is not supported",
       },
-      //   required: [true, "Please provide transmission"],
+      // required: [true, "Please provide transmission"],
     },
     seat: {
       type: Number,
-      //   required: [true, "Please provide number of seat"],
+      //  required: [true, "Please provide number of seat"],
     },
     price: {
       type: Number,
-      //   required: [true, "Please provide price"],
+      //  required: [true, "Please provide price"],
     },
     date: {
       type: Date,
