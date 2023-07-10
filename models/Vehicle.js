@@ -58,7 +58,7 @@ const VehicleSchema = new mongoose.Schema(
         values: ["Sedan", "Suv", "Truck"],
         message: "{VALUE} is not supported",
       },
-      required: [true, "Please provide transmission"],
+      required: [true, "Please provide type"],
     },
     seat: {
       type: Number,

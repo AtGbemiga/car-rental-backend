@@ -4,10 +4,10 @@ const { BadRequestError, NotFoundError } = require("../errors");
 const cloudinary = require("../cloudinary/cloudinary");
 const multer = require("multer");
 
-/*multer settings start*/
+/* multer settings start */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Set the destination folder for uploaded files
+    cb(null, "/tmp/"); // Set the destination folder for uploaded files
   },
   filename: function (req, file, cb) {
     const uniqueIdentifier = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -24,7 +24,7 @@ const fileFilter = function (req, file, cb) {
 };
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
-/*multer settings end*/
+/* multer settings end */
 
 const getAllVehicles = async (req, res) => {
   const vehicles = await Vehicle.find({}).sort("-createdAt");
