@@ -4,7 +4,7 @@ const VehicleSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      //  required: [true, "Please provide vehicle name"],
+      required: [true, "Please provide vehicle name"],
       minlength: 3,
       maxlength: 50,
     },
@@ -36,13 +36,13 @@ const VehicleSchema = new mongoose.Schema(
 
     description: {
       type: String,
-      //  required: [true, "Please provide description"],
+      required: [true, "Please provide description"],
       minlength: 50,
       maxlength: 300,
     },
     colour: {
       type: String,
-      //  required: [true, "Please provide color"],
+      required: [true, "Please provide color"],
     },
     transmission: {
       type: String,
@@ -50,7 +50,7 @@ const VehicleSchema = new mongoose.Schema(
         values: ["Automatic", "Manual"],
         message: "{VALUE} is not supported",
       },
-      //  required: [true, "Please provide transmission"],
+      required: [true, "Please provide transmission"],
     },
     type: {
       type: String,
@@ -58,15 +58,15 @@ const VehicleSchema = new mongoose.Schema(
         values: ["Sedan", "Suv", "Truck"],
         message: "{VALUE} is not supported",
       },
-      // required: [true, "Please provide transmission"],
+      required: [true, "Please provide transmission"],
     },
     seat: {
       type: Number,
-      //  required: [true, "Please provide number of seat"],
+      required: [true, "Please provide number of seat"],
     },
     price: {
       type: Number,
-      //  required: [true, "Please provide price"],
+      required: [true, "Please provide price"],
     },
     date: {
       type: Date,
