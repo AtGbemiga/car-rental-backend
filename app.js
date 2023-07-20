@@ -20,6 +20,7 @@ const authRouter = require("./routes/auth");
 const vehiclesRouter = require("./routes/vehicles");
 const profileRouter = require("./routes/profile");
 const searchRouter = require("./routes/search");
+const hireRouter = require("./routes/hire");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -45,6 +46,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/vehicles", vehiclesRouter);
 app.use("/api/v1/profile", authenticateUser, profileRouter);
 app.use("/api/v1/search", searchRouter);
+app.use("/api/v1/hire", hireRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
