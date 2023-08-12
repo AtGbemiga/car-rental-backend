@@ -24,35 +24,17 @@ const fileFilter = function (req, file, cb) {
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-const AddHire = async (req, res) => {
-  console.log(req.body);
+const getAllHires = async (req, res) => {
+  const hires = await Vehicle.find({ createdBy: req.user.userId }).sort(
+    "-createdAt"
+  );
+  res.status(StatusCodes.OK).json({ hires, count: hires.length });
+};
+
+const addHire = async (req, res) => {
   upload.array("pictures", 5)(req, res, async (error) => {
-    if (error) {
-      // Handle multer upload error
-      if (error.message === "Unexpected field") {
-        return res
-          .status(StatusCodes.BAD_REQUEST)
-          .json({ error: "Maximum of 5 images allowed" });
-      }
-
-      return res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
-    }
-
-    if (!req.files || req.files.length === 0) {
-      // No files uploaded
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ error: "No files uploaded" });
-    }
-
-    if (req.files.length > 5) {
-      // More than 5 files uploaded
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ error: "Maximum of 5 images allowed" });
-    }
-
-    const pictureUrls = [];
+    const pictureUrls = JSON.parse(req.body.pictures);
+    const parsedDateRange = JSON.parse(req.body.dateRange);
 
     // Upload each picture to Cloudinary and store the secure URLs
     for (const file of req.files) {
@@ -73,19 +55,28 @@ const AddHire = async (req, res) => {
     req.body.pictures = pictureUrls;
     req.body.createdBy = req.user.userId;
 
-    // Extract the note from the request body
-    const { note, ...vehicleDetails } = req.body;
+    // Extract the Data from the request body
+    const { deliveryAddress, returnAddress, ...vehicleDetails } = req.body;
 
-    // Create a new vehicle entry with the user's note
-    const vehicleWithNote = { ...vehicleDetails, note };
+    // Create a new vehicle entry with the added form data
+    const vehicleWithForm = {
+      ...vehicleDetails,
+      deliveryAddress,
+      returnAddress,
+      dateRange: {
+        startDate: parsedDateRange[0],
+        endDate: parsedDateRange[1],
+      },
+    };
 
     // Store the new vehicle entry in the database
-    const vehicle = await Vehicle.create(vehicleWithNote);
+    const vehicle = await Vehicle.create(vehicleWithForm);
 
     res.status(StatusCodes.CREATED).json({ vehicle });
   });
 };
 
 module.exports = {
-  AddHire,
+  addHire,
+  getAllHires,
 };

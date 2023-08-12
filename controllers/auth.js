@@ -53,7 +53,9 @@ const logout = async (req, res) => {
   // Invalidate the token by adding it to the blacklist
   invalidatedTokens.push(token);
 
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    path: "/",
+  });
   res.status(StatusCodes.OK).json({ message: "Logged out successfully" });
 };
 
