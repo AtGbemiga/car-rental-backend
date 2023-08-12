@@ -19,7 +19,6 @@ const HireSchema = new mongoose.Schema(
               }
               const maxSizeInBytes = 1 * 1024 * 1024; //1MB
               const isWithinSizeLimit = value.length <= maxSizeInBytes;
-
               return isWithinSizeLimit;
             },
             message: "An image exceeds the maximum size limit (1MB).",
@@ -33,7 +32,6 @@ const HireSchema = new mongoose.Schema(
         message: "Maximum of 5 images allowed.",
       },
     },
-
     description: {
       type: String,
       required: [true, "Please provide description"],
@@ -68,9 +66,23 @@ const HireSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please provide price"],
     },
-    note: {
+    dateRange: {
+      startDate: {
+        type: Date,
+        required: [true, "Please provide start date"],
+      },
+      endDate: {
+        type: Date,
+        required: [true, "Please provide end date"],
+      },
+    },
+    deliveryAddress: {
       type: String,
-      required: [true, "Please provide price"],
+      required: [true, "Please provide delivery address"],
+    },
+    returnAddress: {
+      type: String,
+      required: [true, "Please provide return address"],
     },
     date: {
       type: Date,
