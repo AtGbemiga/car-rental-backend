@@ -27,8 +27,17 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 /* multer settings end */
 
 const getAllVehicles = async (req, res) => {
-  const vehicles = await Vehicle.find({}).sort("-createdAt");
-  res.status(StatusCodes.OK).json({ vehicles, count: vehicles.length });
+  const vehiclesQuery = Vehicle.find({}).sort("-createdAt");
+
+  // pagination
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 3;
+  const skip = (page - 1) * limit;
+
+  const vehicles = await vehiclesQuery.skip(skip).limit(limit).exec(); // Apply skip() and limit() directly to the query. Add exec() to excute immediately on page load
+  const count = await Vehicle.countDocuments();
+
+  res.status(StatusCodes.OK).json({ vehicles, count });
 };
 
 const AddVehicle = async (req, res) => {
@@ -102,17 +111,17 @@ const getSingleVehicle = async (req, res) => {
 };
 
 const UpdateVehicle = async (req, res) => {
-  const {
-    name,
-    description,
-    colour,
-    transmission,
-    seat,
-    price,
-    type,
-    pictures,
-    date,
-  } = req.body;
+  // const {
+  //   name,
+  //   description,
+  //   colour,
+  //   transmission,
+  //   seat,
+  //   price,
+  //   type,
+  //   pictures,
+  //   date,
+  // } = req.body;
 
   const {
     user: { userId },
