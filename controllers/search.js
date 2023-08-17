@@ -73,13 +73,14 @@ const getAllSearches = async (req, res) => {
 
   //pagination
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 9;
+  const limit = Number(req.query.limit) || 32;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);
+
   const final = await result;
 
-  res.status(StatusCodes.OK).json({ final, nbHits: final.length });
+  res.status(StatusCodes.OK).json(final);
 };
 
 module.exports = {
